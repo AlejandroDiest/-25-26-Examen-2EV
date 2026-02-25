@@ -1,21 +1,27 @@
 name: Test-SO-Manual
-
+# workflow_dispatch permite lanzar la ejecucion manualmente desde github
 on:
-  workflow_dispatch: # Esto habilita el boton de "Run workflow"
+  workflow_dispatch:
 
 jobs:
   test-job:
+    # ejecutar en dos sistemas operativos simultaneamente
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
+      # Descargar el codigo fuente del repositorio
       - name: Checkout
         uses: actions/checkout@v4
+
+        # Configurar el entorno de Java
       - name: Java Setup
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
+
+        # Ejecutar los tests de Spring Boot
       - name: Run Tests
         run: mvn test

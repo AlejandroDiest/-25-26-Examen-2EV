@@ -1,4 +1,3 @@
-
 name: Sistemas operativos test
 
 # workflow_dispatch permite lanzar la ejecucion manualmente desde github

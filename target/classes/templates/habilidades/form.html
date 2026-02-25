@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<main class="container flex-grow-1">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/habilidades}" th:object="${Habilidad}" method="post">
+                        <input type="hidden" th:field="*{id}" />
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                <i class="bi me-1"></i>Nombre
+                            </label>
+                            <input id="nombre" th:field="*{nombre}" type="text"
+                                   class="form-control"
+                                   placeholder="Nombre del habilidad"/>
+                        </div>
+
+                        <!-- Edad -->
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">
+                                <i class="bi me-1"></i>Descripcion
+                            </label>
+                            <input id="descripcion" th:field="*{descripcion}" type="text" min="0" max="120"
+                                   class="form-control"
+                                   placeholder="Descripcion habilidad"/>
+                        </div>
+
+                        <!-- Genero -->
+                        <div class="mb-3">
+                            <label for="genero" class="form-label">
+                                <i class="bi me-1"></i>Dificultad
+                            </label>
+                           <input id="dificultad" th:field="*{dificultad}" type="number" min="0" max="10"
+                                   class="form-control" 
+                                   placeholder="Dificultad Experiencia (0-10)"/>
+                       </div>
+
+                        
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                <i class="bi me-1"></i>Experiencia
+                            </label>
+                            <input id="experiencia" th:field="*{experiencia}" type="number" min="0" max="100"
+                                   class="form-control" 
+                                   placeholder="Años Experiencia"/>
+                            </div>
+                        
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                <i class="bi me-1"></i>Categoria
+                            </label>
+                            <input id="categoria" th:field="*{categoria}" type="number" min="0"
+                                   class="form-control"
+                                   placeholder="categoria habilidad"/>
+                            </div>
+                        
+                      
+
+                        <!-- Botones -->
+                        <div class="d-flex gap-2 justify-content-end">
+                            <a th:href="@{/habilidades}" class="btn btn-secondary">
+                                <i class="bi bi-x-lg me-1"></i>Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg me-1"></i>Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+name: Generar-WAR
+
+on:
+  workflow_run:
+    # Se activa al terminar el flujo de tests
+    workflows: ["Sistemas operativos test"]
+    types:
+      - completed
+
+jobs:
+  build-artifact:
+    # Solo se ejecuta si los tests de la ejecucion previa fueron exitosos
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      # Generamos el WAR. ademas nos saltsamos los tests porque ya los hemos comprobado
+      - name: Empaquetar proyecto (WAR)
+        run: mvn package -DskipTests
+
+      # Almacenamos el archivo para que sea descargable
+      - name: Guardar WAR como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: examen-springboot-war
+          path: target/*.war

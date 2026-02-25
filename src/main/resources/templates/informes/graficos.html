@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas de Náufragos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<main class="container flex-grow-1 mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class=" me-2"></i>Panel de Control: Náufragos</h1>
+        <a th:href="@{/naufragos}" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Volver</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi me-2"></i>Náufragos por Nacionalidad</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="chartNacionalidad"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="bi  me-2"></i>Distribución por Sexo</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="chartSexo"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+<script th:inline="javascript">
+    const nacLabels = /*[[${nacionalidadLabels}]]*/ [];
+    const nacData = /*[[${nacionalidadData}]]*/ [];
+    const sexoLabels = /*[[${sexoLabels}]]*/ [];
+    const sexoData = /*[[${sexoData}]]*/ [];
+
+    new Chart(document.getElementById('chartNacionalidad'), {
+        type: 'bar',
+        data: {
+            labels: nacLabels,
+            datasets: [{
+                label: 'Cantidad',
+                data: nacData,
+                backgroundColor: '#4e73df',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true, ticks: { stepSize: 1 } }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+
+    new Chart(document.getElementById('chartSexo'), {
+        type: 'doughnut',
+        data: {
+            labels: sexoLabels,
+            datasets: [{
+                data: sexoData,
+                backgroundColor: ['#4e73df', '#e74a3b', '#1cc88a'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+</script>
+</body>
+</html>

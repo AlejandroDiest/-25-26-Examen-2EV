@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<main class="container flex-grow-1">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/naufragos}" th:object="${Naufrago}" method="post">
+                        <input type="hidden" th:field="*{id}" />
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                <i class="bi me-1"></i>Nombre
+                            </label>
+                            <input id="nombre" th:field="*{nombre}" type="text"
+                                   class="form-control"
+                                   placeholder="Nombre del naufrago"/>
+                        </div>
+
+                        <!-- Edad -->
+                        <div class="mb-3">
+                            <label for="edad" class="form-label">
+                                <i class="bi me-1"></i>Edad
+                            </label>
+                            <input id="edad" th:field="*{edad}" type="number" min="0" max="120"
+                                   class="form-control"
+                                   placeholder="Edad"/>
+                        </div>
+
+                        <!-- Genero -->
+                        <div class="mb-3">
+                            <label for="genero" class="form-label">
+                                <i class="bi me-1"></i>Sexo
+                            </label>
+                            <select id="sexo" th:field="*{sexo}" 
+                                    class="form-select" >
+                                <option value="">-- Seleccionar --</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                       </div>
+
+                        
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                <i class="bi me-1"></i>Isla
+                            </label>
+                            <input id="isla" th:field="*{isla}" type="text"
+                                   class="form-control" 
+                                   placeholder="Isla del naufrago"/>
+                            </div>
+                        
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                <i class="bi me-1"></i>Nacionalidad
+                            </label>
+                            <input id="nacionalidad" th:field="*{nacionalidad}" type="text"
+                                   class="form-control"
+                                   placeholder="Nacionalidad del naufrago"/>
+                            </div>
+                        
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                <i class="bi bi-person me-1"></i>Fecha Rescate
+                            </label>
+                            <input id="fecha_rescate" th:field="*{fecha_rescate}" type="text"
+                                   class="form-control"
+                                   placeholder="Rescate del naufrago"/>
+                          
+                        </div>
+                        
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                <i class="bi bi-person me-1"></i>Habilidad
+                            </label>
+                            <input id="habilidad" th:field="*{habilidad}" type="text"
+                                   class="form-control"
+                                   placeholder="Rescate del naufrago"/> <div th:if="${#fields.hasErrors('nombre')}" class="invalid-feedback" th:errors="*{nombre}">Error</div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-flex gap-2 justify-content-end">
+                            <a th:href="@{/naufragos}" class="btn btn-secondary">
+                                <i class="bi bi-x-lg me-1"></i>Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg me-1"></i>Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>
